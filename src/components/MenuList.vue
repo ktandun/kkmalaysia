@@ -10,7 +10,6 @@ import MenuCard from './MenuCard.vue'
         :name="menuItem.name"
         :options="menuItem.options"
         :price="menuItem.price"
-        :image="menuItem.image"
       ></MenuCard>
     </div>
   </div>
@@ -19,7 +18,7 @@ import MenuCard from './MenuCard.vue'
 <style scoped>
 .menu-cards {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 8px;
 }
