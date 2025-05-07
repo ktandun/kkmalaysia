@@ -1,54 +1,73 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 const props = defineProps<{
   name: string
   options: Array<string>
   price: number
-  image: string
 }>()
+
+const picked = ref('')
+const quantity = ref('')
 </script>
 
 <template>
-  <div class="image-container">
-    <div class="overlay-dark"></div>
-    <div class="overlay-text">
-      <p>{{ props.name }}</p>
-      <p>{{ props.options }}</p>
-      <p>{{ props.price }}</p>
-    </div>
-    <img :src="props.image" />
-  </div>
+      <div class="menu-item">
+        <div class="menu-description">
+          <div class="name">
+            <p>{{ props.name }}</p>
+            <p class="price">{{ props.price }}</p>
+          </div>
+          <label class="option" v-for="ops in props.options" :key="ops">
+            <input type="radio" :value="ops" v-model="picked" />
+            {{ ops }}
+          </label>
+        </div>
+        <div class="item-quantity">
+          <button> — </button>
+          <input v-model="quantity" placeholder=" " />
+          <button> + </button>
+        </div>
+      </div>
 </template>
 
 <style scoped>
-.image-container {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  width: 200px;
-  height: 200px;
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1); /* semi-transparent black */
+  padding: 0 3em;
 }
 
-.image-container img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
+.menu-description {
+  color: black;
+  display: flex;
+  flex-direction: column;
 }
 
-.overlay-text {
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  transform: translate(-20%, -20%);
-  color: white;
+.menu-description .name {
+  display: flex;
+  flex-direction: row;
 }
 
-.overlay-dark {
-  position: absolute;
-  top: 0;
-  left: 0;
+.menu-description p::after {
+  content: " |";
+}
+
+.menu-description p.price::before {
+  content: "$";
+}
+
+.item-quantity input {
+  width: 35px;
+  margin: 0 .1em;
+}
+
+.calculator {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* semi-transparent black */
+  background-color: peru;
 }
+
 </style>
