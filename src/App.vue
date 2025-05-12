@@ -23,7 +23,5 @@ const store = useStore();
   flex-basis: 55%;
 }
 
-.app-main > :last-child {
-  flex-basis: 45%;
-}
+
 </style>
