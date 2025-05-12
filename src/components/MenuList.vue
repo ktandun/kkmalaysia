@@ -45,17 +45,25 @@ const selectedMenuCategory = computed(() =>
 }
 
 .side-bar button{
-  padding: 4em 0;
+  padding: 2.75em 0;
   width: 100%;
   cursor: pointer;
+  color: white;
+  font-size: large;
+  font-weight: bold;
+  background-color: #d23a14;
+}
+
+.side-bar button:active {
+    background-color: #a82504;
+
 }
 
 .menu-cards {
   display: flex;
   height: 100vh;
   gap: 8px;
-  background-color: rgba(0, 0, 0, 0.1); /* semi-transparent black */
-}
+  }
 
 .menu-card {
   width: 100%;

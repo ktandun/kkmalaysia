@@ -13,7 +13,7 @@ const totalPrice = computed(() => {
 
 <template>
   <div class="price-box">
-    <p style="text-align: center;">Payment</p>
+    <p style="text-align: center; font-weight: bold;">Order summary</p>
     <div v-for="ord in custOrder" :key="ord.name">
       <div class="pricedesc">
         <p>{{ ord.selection }} {{ ord.name }} (x{{ ord.quantity }}) </p>

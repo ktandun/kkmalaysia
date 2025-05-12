@@ -73,13 +73,13 @@ const addOrder = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1em 0;
+  padding: 1em;
+  font-weight: bold;
   border-bottom: 1px black solid;
 }
 
 .menu-description {
   width: 100%;
-  color: black;
   display: flex;
   flex-direction: column;
 }
