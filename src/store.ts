@@ -3,6 +3,7 @@ import { createStore } from 'vuex';
 export interface menuItem {
     name: string
     selection: string
+    addon: number
     quantity: number
     price: number
 }
