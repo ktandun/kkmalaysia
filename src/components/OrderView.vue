@@ -27,7 +27,7 @@ const totalPrice = computed(() => {
 
 <style scoped>
 .price-box {
-    width: 300px;
+    width: 100%;
     height: 100vh;
     display: flex;
     padding: 0 2em;
