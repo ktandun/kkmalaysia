@@ -43,6 +43,15 @@ const addOrder = () => {
     console.log(order)
     store.commit('addOrder', order)
   }
+} 
+
+const getAddOns = (idx: number) => {
+  let extraPrice = props.addons[idx];
+  if (extraPrice > 0) {
+    let text = "(+" + extraPrice + ".00)";
+    return text
+  }
+  return ""
 }
 </script>
 
@@ -51,11 +60,11 @@ const addOrder = () => {
         <div class="menu-description">
           <div class="name">
             <p>{{ props.name }}</p>
-            <p class="price">{{ props.price }}</p>
+            <p class="price">${{ props.price }}</p>
           </div>
           <label class="option" v-for="(ops,idx) in props.options" :key="ops">
             <input type="radio" :value="idx" v-model="pickedIndex" />
-            {{ ops }}
+            {{ ops }} {{ getAddOns(idx) }}
           </label>
         </div>
         <div class="item-quantity">
@@ -89,12 +98,12 @@ const addOrder = () => {
   flex-direction: row;
 }
 
-.menu-description p::after {
-  content: " |";
-}
+.menu-description p.price {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  margin-left: 1em;
+  padding: 0 1em;
 
-.menu-description p.price::before {
-  content: "$";
 }
 
 .item-quantity {
