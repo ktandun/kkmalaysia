@@ -1,14 +1,42 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useStore } from 'vuex';
+import type { menuItem } from '../store';
+
+const store = useStore();
 
 const props = defineProps<{
   name: string
   options: Array<string>
   price: number
+  quantity: number
 }>()
 
 const picked = ref('')
-const quantity = ref('')
+const quantity = ref(0)
+
+const increment = () => {
+  quantity.value += 1
+}
+
+const decrement = () => {
+  quantity.value -= 1
+
+  if (quantity.value <= 0) { quantity.value = 0} /* cap at zero */
+}
+
+const addOrder = () => {
+  let order: menuItem = {
+    name: props.name,
+    selection: picked.value,
+    quantity: quantity.value,
+    price: props.price
+  }
+
+  console.log(order)
+
+  store.commit('addOrder', order)
+}
 </script>
 
 <template>
@@ -24,23 +52,26 @@ const quantity = ref('')
           </label>
         </div>
         <div class="item-quantity">
-          <button> — </button>
-          <input v-model="quantity" placeholder=" " />
-          <button> + </button>
+          <button @click="decrement"> — </button>
+          <input placeholder=" " v-model="quantity" />
+          <button @click="increment"> + </button>
         </div>
+        <button @click="addOrder()" class="addBtn"> Add to order </button>
       </div>
 </template>
 
 <style scoped>
 .menu-item {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.1); /* semi-transparent black */
-  padding: 0 3em;
+  padding: 1em 0;
+  border-bottom: 1px black solid;
 }
 
 .menu-description {
+  width: 100%;
   color: black;
   display: flex;
   flex-direction: column;
@@ -59,15 +90,24 @@ const quantity = ref('')
   content: "$";
 }
 
-.item-quantity input {
-  width: 35px;
+.item-quantity {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
   margin: 0 .1em;
 }
 
-.calculator {
-  width: 100%;
-  height: 100%;
-  background-color: peru;
+.item-quantity button {
+  padding: 10px;
 }
 
+.item-quantity input {
+  width: 35px;
+  text-align: center;
+}
+
+.addBtn {
+  width: 180px;
+  padding: 10px;
+}
 </style>

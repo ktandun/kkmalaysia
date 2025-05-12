@@ -1,25 +1,67 @@
 <script setup lang="ts">
-import { menuItems } from './menus.ts'
+import { computed, ref } from 'vue'
+import { menuCategories } from './menus'
 import MenuCard from './MenuCard.vue'
+
+const quantity = ref(0)
+const panelSelected = ref(1)
+
+const handleClick = (id: number) => {
+  panelSelected.value = id
+}
+
+const selectedMenuCategory = computed(() =>
+  menuCategories.find(menu => menu.id === panelSelected.value)?.items
+)
 </script>
 
 <template>
   <div class="menu-cards">
-    <div class="menu-card" v-for="menuItem in menuItems" :key="menuItem.id">
-      <MenuCard
-        :name="menuItem.name"
-        :options="menuItem.options"
-        :price="menuItem.price"
-      ></MenuCard>
+    <div class="side-bar">
+      <div v-for="menu in menuCategories" :key="menu.id">
+        <button @click="handleClick(menu.id)">{{menu.category}}</button>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div v-for="menuItem in selectedMenuCategory" :key="menuItem.id">
+          <MenuCard
+          :name="menuItem.name"
+          :options="menuItem.options"
+          :price="menuItem.price"
+          :quantity = quantity
+        ></MenuCard>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.side-bar {
+  display: flex;
+  justify-content:space-evenly;
+  flex-direction: column;
+  width: 200px;
+}
+
+.side-bar button{
+  padding: 4em 0;
+  width: 100%;
+  cursor: pointer;
+}
+
 .menu-cards {
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  height: 100vh;
   gap: 8px;
+  background-color: rgba(0, 0, 0, 0.1); /* semi-transparent black */
 }
+
+.menu-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-right: 2em;
+  overflow-y: scroll;
+}
+
 </style>
