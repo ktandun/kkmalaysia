@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import MenuList from './components/MenuList.vue'
-import PriceCalculator from './components/PriceCalculator.vue';
+import OrderView from './components/OrderView.vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
 </script>
 
 <template>
   <div class="app-main">
-    <MenuList></MenuList>
-    <PriceCalculator></PriceCalculator>
+    <MenuList />
+    <OrderView />
   </div>
 </template>
 
