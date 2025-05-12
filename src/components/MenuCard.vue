@@ -8,11 +8,12 @@ const store = useStore();
 const props = defineProps<{
   name: string
   options: Array<string>
+  addons: Array<number>
   price: number
   quantity: number
 }>()
 
-const picked = ref('')
+const pickedIndex = ref<number>(0)
 const quantity = ref(0)
 
 const increment = () => {
@@ -26,16 +27,22 @@ const decrement = () => {
 }
 
 const addOrder = () => {
-  let order: menuItem = {
-    name: props.name,
-    selection: picked.value,
-    quantity: quantity.value,
-    price: props.price
+  if (quantity.value > 0) {
+
+    let selected = props.options[pickedIndex.value] || ""
+    let addOnVal = props.addons[pickedIndex.value] || 0
+
+    let order: menuItem = {
+      name: props.name,
+      selection: selected,
+      addon: addOnVal,
+      quantity: quantity.value,
+      price: props.price
+    }
+
+    console.log(order)
+    store.commit('addOrder', order)
   }
-
-  console.log(order)
-
-  store.commit('addOrder', order)
 }
 </script>
 
@@ -46,8 +53,8 @@ const addOrder = () => {
             <p>{{ props.name }}</p>
             <p class="price">{{ props.price }}</p>
           </div>
-          <label class="option" v-for="ops in props.options" :key="ops">
-            <input type="radio" :value="ops" v-model="picked" />
+          <label class="option" v-for="(ops,idx) in props.options" :key="ops">
+            <input type="radio" :value="idx" v-model="pickedIndex" />
             {{ ops }}
           </label>
         </div>

@@ -27,6 +27,7 @@ const selectedMenuCategory = computed(() =>
           <MenuCard
           :name="menuItem.name"
           :options="menuItem.options"
+          :addons="menuItem.addons"
           :price="menuItem.price"
           :quantity = quantity
         ></MenuCard>
